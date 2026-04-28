@@ -21,6 +21,7 @@ const priceAddressAddressEl = document.getElementById("price-address-address");
 const priceBusinessEl = document.getElementById("price-business");
 const priceCityKgEl = document.getElementById("price-city-kg");
 const priceCityBusinessKvEl = document.getElementById("price-city-business-kv");
+const priceRailEl = document.getElementById("price-rail");
 const emailNoticeInput = document.getElementById("service-email-notice");
 const returnWaybillInput = document.getElementById("service-return-waybill");
 const urgentInput = document.getElementById("service-urgent");
@@ -83,6 +84,40 @@ function validateInputs(weightValue, dimensionValues) {
 
 function calculateDeliveryPrice(usedWeight, tariff) {
   return ((usedWeight - 0.5) / 0.5) * 520 + tariff;
+}
+
+function calculateRailPrice(weight) {
+  const roundedRailWeight = Math.ceil(weight);
+
+  if (roundedRailWeight >= 0 && roundedRailWeight <= 25) {
+    return 10100;
+  }
+
+  if (roundedRailWeight > 25 && roundedRailWeight <= 50) {
+    return roundedRailWeight * 400;
+  }
+
+  if (roundedRailWeight > 50 && roundedRailWeight <= 100) {
+    return roundedRailWeight * 370;
+  }
+
+  if (roundedRailWeight > 100 && roundedRailWeight <= 200) {
+    return roundedRailWeight * 340;
+  }
+
+  if (roundedRailWeight > 200 && roundedRailWeight <= 300) {
+    return roundedRailWeight * 305;
+  }
+
+  if (roundedRailWeight > 300 && roundedRailWeight <= 400) {
+    return roundedRailWeight * 300;
+  }
+
+  if (roundedRailWeight > 400 && roundedRailWeight <= 500) {
+    return roundedRailWeight * 280;
+  }
+
+  return "custom pricing";
 }
 
 function calculateServicesSurcharge(usedWeight) {
@@ -184,6 +219,9 @@ form.addEventListener("submit", (event) => {
     calculateDeliveryPrice(roundedUsedWeight, TARIFFS.cityKg) + servicesSurcharge;
   const cityBusinessKvPrice =
     calculateDeliveryPrice(roundedUsedWeight, TARIFFS.cityBusinessKv) + servicesSurcharge;
+  const railBasePrice = calculateRailPrice(roundedUsedWeight);
+  const railPrice =
+    typeof railBasePrice === "number" ? railBasePrice + servicesSurcharge : railBasePrice;
 
   actualWeightEl.textContent = `${formatNumber(actualWeight)} кг`;
   dimWeightEl.textContent = `${formatNumber(dimensionalWeight)} кг`;
@@ -195,6 +233,8 @@ form.addEventListener("submit", (event) => {
   priceBusinessEl.textContent = `${formatTenge(businessPrice)} ₸`;
   priceCityKgEl.textContent = `${formatTenge(cityKgPrice)} ₸`;
   priceCityBusinessKvEl.textContent = `${formatTenge(cityBusinessKvPrice)} ₸`;
+  priceRailEl.textContent =
+    typeof railPrice === "number" ? `${formatTenge(railPrice)} ₸` : railPrice;
 
   resultsEl.classList.remove("hidden");
 });
