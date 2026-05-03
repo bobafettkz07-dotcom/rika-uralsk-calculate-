@@ -30,7 +30,7 @@ body {
 }
 
 .calculator-card {
-  width: min(760px, 100%);
+  width: min(820px, 100%);
   background: var(--card-bg);
   border-radius: 20px;
   padding: 28px;
@@ -165,24 +165,89 @@ h1 {
   color: #374151;
 }
 
-.prices-grid {
+.prices-sections {
   margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.price-group {
+  margin: 0;
+  padding: 16px 16px 18px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+}
+
+.price-group--individual {
+  background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 38%, #ffffff 100%);
+  border-color: #bfdbfe;
+}
+
+.price-group--legal {
+  background: linear-gradient(180deg, #f5f3ff 0%, #fafafa 40%, #ffffff 100%);
+  border-color: #ddd6fe;
+}
+
+.price-group--other {
+  background: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+.price-group-title {
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #4b5563;
+}
+
+.price-group--individual .price-group-title {
+  color: #1d4ed8;
+}
+
+.price-group--legal .price-group-title {
+  color: #5b21b6;
+}
+
+.price-group--other .price-group-title {
+  color: #374151;
+}
+
+.prices-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+}
+
+.prices-grid--single {
+  grid-template-columns: 1fr;
+  max-width: 420px;
 }
 
 .price-item {
   padding: 14px;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  background: #fafbff;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
-.price-item h3 {
+.price-group--individual .price-item {
+  border-color: #dbeafe;
+}
+
+.price-group--legal .price-item {
+  border-color: #ede9fe;
+}
+
+.tariff-title {
   margin: 0 0 8px;
   font-size: 0.95rem;
-  color: #4b5563;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #374151;
 }
 
 .price-item p {
@@ -208,5 +273,13 @@ h1 {
 
   .prices-grid {
     grid-template-columns: 1fr;
+  }
+
+  .prices-grid--single {
+    max-width: none;
+  }
+
+  .price-group {
+    padding: 14px;
   }
 }

@@ -76,35 +76,64 @@
           <p>Используемый вес: <strong id="used-weight">0.00 кг</strong></p>
         </div>
 
-        <div class="prices-grid">
-          <article class="price-item">
-            <h3>ПВЗ → ПВЗ</h3>
-            <p id="price-office-office">0.00</p>
-          </article>
-          <article class="price-item">
-            <h3>ПВЗ → Адрес</h3>
-            <p id="price-office-address">0.00</p>
-          </article>
-          <article class="price-item">
-            <h3>Адрес → Адрес</h3>
-            <p id="price-address-address">0.00</p>
-          </article>
-          <article class="price-item">
-            <h3>Внутригородская (физ.лицо)</h3>
-            <p id="price-city-kg">0.00</p>
-          </article>
-          <article class="price-item">
-            <h3>Юрлица</h3>
-            <p id="price-business">0.00</p>
-          </article>
-          <article class="price-item">
-            <h3>Юрлица внутригородская</h3>
-            <p id="price-city-business-kv">0.00</p>
-          </article>
-          <article class="price-item">
-            <h3>ЖД</h3>
-            <p id="price-rail">0.00</p>
-          </article>
+        <div class="prices-sections">
+          <section class="price-group price-group--individual" aria-labelledby="prices-individual-heading">
+            <h3 class="price-group-title" id="prices-individual-heading">Физические лица</h3>
+            <div class="prices-grid">
+              <article class="price-item">
+                <h4 class="tariff-title">Физлицо(ПВЗ-ПВЗ)</h4>
+                <p id="price-office-office">0.00</p>
+              </article>
+              <article class="price-item">
+                <h4 class="tariff-title">Физлицо(ПВЗ-Дверь)</h4>
+                <p id="price-office-address">0.00</p>
+              </article>
+              <article class="price-item">
+                <h4 class="tariff-title">Физлицо(Дверь-Дверь)</h4>
+                <p id="price-address-address">0.00</p>
+              </article>
+              <article class="price-item">
+                <h4 class="tariff-title">Физлицо(Внутригородская, Дверь-Дверь)</h4>
+                <p id="price-city-kg">0.00</p>
+              </article>
+              <article class="price-item">
+                <h4 class="tariff-title">Физлицо(в пределах РК, 4 зона)</h4>
+                <p id="price-individual-zone4">0.00</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="price-group price-group--legal" aria-labelledby="prices-legal-heading">
+            <h3 class="price-group-title" id="prices-legal-heading">Юридические лица</h3>
+            <div class="prices-grid">
+              <article class="price-item">
+                <h4 class="tariff-title">Юрлицо (Межгород, в пределах РК, 2 зона)</h4>
+                <p id="price-business">0.00</p>
+              </article>
+              <article class="price-item">
+                <h4 class="tariff-title">Юрлицо (в пределах РК, 3 зона)</h4>
+                <p id="price-business-zone3">0.00</p>
+              </article>
+              <article class="price-item">
+                <h4 class="tariff-title">Юрлицо(в пределах РК, 4 зона)</h4>
+                <p id="price-business-zone4">0.00</p>
+              </article>
+              <article class="price-item">
+                <h4 class="tariff-title">Юрлицо (Внутригородская, Дверь-Дверь)</h4>
+                <p id="price-city-business-kv">0.00</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="price-group price-group--other" aria-labelledby="prices-other-heading">
+            <h3 class="price-group-title" id="prices-other-heading">Наземная доставка</h3>
+            <div class="prices-grid prices-grid--single">
+              <article class="price-item">
+                <h4 class="tariff-title">Наземный (ЖД)</h4>
+                <p id="price-rail">0.00</p>
+              </article>
+            </div>
+          </section>
         </div>
       </section>
     </section>
