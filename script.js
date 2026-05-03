@@ -1,10 +1,13 @@
 const TARIFFS = {
-  officeOffice: 1870,
-  officeAddress: 2600,
-  addressAddress: 3350,
-  business: 2800,
-  cityKg: 2100,
-  cityBusinessKv: 1660
+  officeOffice: { base: 1870, step: 520 },
+  officeAddress: { base: 2600, step: 520 },
+  addressAddress: { base: 3350, step: 520 },
+  business: { base: 2800, step: 520 },
+  businessZone3: { base: 3250, step: 520 },
+  businessZone4: { base: 5860, step: 650 },
+  individualZone4: { base: 5860, step: 650 },
+  cityKg: { base: 2100, step: 520 },
+  cityBusinessKv: { base: 1660, step: 520 }
 };
 
 const form = document.getElementById("delivery-form");
@@ -21,6 +24,9 @@ const priceAddressAddressEl = document.getElementById("price-address-address");
 const priceBusinessEl = document.getElementById("price-business");
 const priceCityKgEl = document.getElementById("price-city-kg");
 const priceCityBusinessKvEl = document.getElementById("price-city-business-kv");
+const priceBusinessZone3El = document.getElementById("price-business-zone3");
+const priceBusinessZone4El = document.getElementById("price-business-zone4");
+const priceIndividualZone4El = document.getElementById("price-individual-zone4");
 const priceRailEl = document.getElementById("price-rail");
 const emailNoticeInput = document.getElementById("service-email-notice");
 const returnWaybillInput = document.getElementById("service-return-waybill");
@@ -74,16 +80,16 @@ function validateInputs(weightValue, dimensionValues) {
       return;
     }
 
-    if (Number(value) <= 0) {
-      errors.push(`Поле "${label}" должно быть больше 0.`);
+    if (Number(value) < 0) {
+      errors.push(`Поле "${label}" не может быть отрицательным.`);
     }
   });
 
   return errors;
 }
 
-function calculateDeliveryPrice(usedWeight, tariff) {
-  return ((usedWeight - 0.5) / 0.5) * 520 + tariff;
+function calculateDeliveryPrice(usedWeight, baseRate, stepPrice) {
+  return ((usedWeight - 0.5) / 0.5) * stepPrice + baseRate;
 }
 
 function calculateRailPrice(weight) {
@@ -208,17 +214,47 @@ form.addEventListener("submit", (event) => {
   const servicesSurcharge = calculateServicesSurcharge(roundedUsedWeight);
 
   const officeOfficePrice =
-    calculateDeliveryPrice(roundedUsedWeight, TARIFFS.officeOffice) + servicesSurcharge;
+    calculateDeliveryPrice(roundedUsedWeight, TARIFFS.officeOffice.base, TARIFFS.officeOffice.step) +
+    servicesSurcharge;
   const officeAddressPrice =
-    calculateDeliveryPrice(roundedUsedWeight, TARIFFS.officeAddress) + servicesSurcharge;
+    calculateDeliveryPrice(roundedUsedWeight, TARIFFS.officeAddress.base, TARIFFS.officeAddress.step) +
+    servicesSurcharge;
   const addressAddressPrice =
-    calculateDeliveryPrice(roundedUsedWeight, TARIFFS.addressAddress) + servicesSurcharge;
+    calculateDeliveryPrice(
+      roundedUsedWeight,
+      TARIFFS.addressAddress.base,
+      TARIFFS.addressAddress.step
+    ) + servicesSurcharge;
   const businessPrice =
-    calculateDeliveryPrice(roundedUsedWeight, TARIFFS.business) + servicesSurcharge;
+    calculateDeliveryPrice(roundedUsedWeight, TARIFFS.business.base, TARIFFS.business.step) +
+    servicesSurcharge;
+  const businessZone3Price =
+    calculateDeliveryPrice(
+      roundedUsedWeight,
+      TARIFFS.businessZone3.base,
+      TARIFFS.businessZone3.step
+    ) + servicesSurcharge;
+  const businessZone4Price =
+    calculateDeliveryPrice(
+      roundedUsedWeight,
+      TARIFFS.businessZone4.base,
+      TARIFFS.businessZone4.step
+    ) + servicesSurcharge;
+  const individualZone4Price =
+    calculateDeliveryPrice(
+      roundedUsedWeight,
+      TARIFFS.individualZone4.base,
+      TARIFFS.individualZone4.step
+    ) + servicesSurcharge;
   const cityKgPrice =
-    calculateDeliveryPrice(roundedUsedWeight, TARIFFS.cityKg) + servicesSurcharge;
+    calculateDeliveryPrice(roundedUsedWeight, TARIFFS.cityKg.base, TARIFFS.cityKg.step) +
+    servicesSurcharge;
   const cityBusinessKvPrice =
-    calculateDeliveryPrice(roundedUsedWeight, TARIFFS.cityBusinessKv) + servicesSurcharge;
+    calculateDeliveryPrice(
+      roundedUsedWeight,
+      TARIFFS.cityBusinessKv.base,
+      TARIFFS.cityBusinessKv.step
+    ) + servicesSurcharge;
   const railBasePrice = calculateRailPrice(roundedUsedWeight);
   const railPrice =
     typeof railBasePrice === "number" ? railBasePrice + servicesSurcharge : railBasePrice;
@@ -231,6 +267,9 @@ form.addEventListener("submit", (event) => {
   priceOfficeAddressEl.textContent = `${formatTenge(officeAddressPrice)} ₸`;
   priceAddressAddressEl.textContent = `${formatTenge(addressAddressPrice)} ₸`;
   priceBusinessEl.textContent = `${formatTenge(businessPrice)} ₸`;
+  priceBusinessZone3El.textContent = `${formatTenge(businessZone3Price)} ₸`;
+  priceBusinessZone4El.textContent = `${formatTenge(businessZone4Price)} ₸`;
+  priceIndividualZone4El.textContent = `${formatTenge(individualZone4Price)} ₸`;
   priceCityKgEl.textContent = `${formatTenge(cityKgPrice)} ₸`;
   priceCityBusinessKvEl.textContent = `${formatTenge(cityBusinessKvPrice)} ₸`;
   priceRailEl.textContent =
