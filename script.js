@@ -2,12 +2,12 @@ const TARIFFS = {
   officeOffice: { base: 1870, step: 520 },
   officeAddress: { base: 2600, step: 520 },
   addressAddress: { base: 3350, step: 520 },
-  business: { base: 2800, step: 520 },
-  businessZone3: { base: 3250, step: 520 },
+  business: { base: 2900, step: 520 },
+  businessZone3: { base: 3350, step: 520 },
   businessZone4: { base: 5860, step: 650 },
   individualZone4: { base: 5860, step: 650 },
   cityKg: { base: 2100, step: 520 },
-  cityBusinessKv: { base: 1660, step: 520 }
+  cityBusinessKv: { base: 1760, step: 520 }
 };
 
 const form = document.getElementById("delivery-form");
